@@ -1,6 +1,4 @@
-import streamlit as st 
-from google import genai
-from google.genai import types
+import streamlit as st
 import google.generativeai as gen_ai
 from dotenv import load_dotenv
 import os
@@ -9,7 +7,10 @@ st.title("Ong's ChatBot")
 
 # Load API key from .env file
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    st.error("GOOGLE_API_KEY not found in environment. Please check your .env file.")
+    st.stop()
 gen_ai.configure(api_key=api_key)
 
 if "genai_model" not in st.session_state:
